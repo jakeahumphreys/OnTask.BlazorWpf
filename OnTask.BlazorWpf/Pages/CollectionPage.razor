@@ -2,5 +2,53 @@
 @page "/Collection/{id}"
 
 <MudContainer>
-    <MudText Typo="Typo.h6">@_collection.Name</MudText>
+    @if (_collection.IsFocused)
+    {
+        <MudAlert Severity="Severity.Info" ContentAlignment="HorizontalAlignment.Center">This is a focused collection</MudAlert>
+    }
+    <MudCard class="mb-2 mt-2">
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@_collection.Name</MudText>
+            </CardHeaderContent>
+            <CardHeaderActions>
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
+            </CardHeaderActions>
+        </MudCardHeader>
+    </MudCard>
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h5">Tasks</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider DividerType="DividerType.Middle" Class="my-6"/>
+        <MudCardContent>
+            
+            <MudTable Items="@_collection.Tasks" Striped="true" Dense="@dense">
+                <ToolBarContent>
+                    <MudText Typo="Typo.caption">There are @_collection.Tasks.Count tasks in this collection.</MudText>
+                </ToolBarContent>
+                <HeaderContent>
+                    <MudTh>ID</MudTh>
+                    <MudTh>Name</MudTh>
+                    <MudTh>Created</MudTh>
+                    <MudTh>Status</MudTh>
+                    <MudTh>Actions</MudTh>
+                </HeaderContent>
+                <RowTemplate>
+                    <MudTd DataLabel="ID">@context.Id</MudTd>
+                    <MudTd DataLabel="Name">@context.Name</MudTd>
+                    <MudTd DataLabel="Created">@context.CreatedAt.ToShortDateString()</MudTd>
+                    <MudTd DataLabel="Created">@context.Status</MudTd>
+                </RowTemplate>
+            </MudTable>
+            <div class="d-flex flex-wrap mt-4">
+                 <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch>
+            </div>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" Color="Color.Success">Add Task</MudButton>
+        </MudCardActions>
+    </MudCard>
 </MudContainer>

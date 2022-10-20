@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnTask.BlazorWpf.Data.Collections;
 
@@ -15,7 +16,7 @@ public class CollectionRepository
 
     public List<Collection> GetAll()
     {
-        return _context.Collections.ToList();
+        return _context.Collections.Include(x => x.Tasks).ThenInclude(y => y.Activities).ToList();
     }
 
     public Collection GetById(Guid id)

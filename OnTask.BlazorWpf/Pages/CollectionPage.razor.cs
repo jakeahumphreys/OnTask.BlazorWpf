@@ -11,6 +11,8 @@ public partial class CollectionPage
     [Parameter]
     public string Id { get; set; }
     
+    private bool dense = false;
+    
     [Inject] private CollectionService CollectionService { get; set; }
 
     protected override void OnInitialized()
