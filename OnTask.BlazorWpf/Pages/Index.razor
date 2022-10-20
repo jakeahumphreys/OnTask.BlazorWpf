@@ -3,8 +3,11 @@
 
 <PageTitle>Index</PageTitle>
 
-<MudContainer>
-    <MudStack>
+<MudContainer MaxWidth="MaxWidth.ExtraExtraLarge">
+    <MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
+        Create Collection
+    </MudButton>
+    <MudStack Class="flex-auto">
         @foreach (var collection in Collections)
         {
             <MudCard Class="@(collection.IsFocused ? "border-solid border-2 mud-border-info mud-elevation-24" : "")">

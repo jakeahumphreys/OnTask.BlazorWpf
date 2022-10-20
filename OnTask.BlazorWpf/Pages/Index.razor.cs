@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 using OnTask.BlazorWpf.Data.Collections;
+using OnTask.BlazorWpf.Pages.Dialogs;
 using OnTask.BlazorWpf.Services;
 
 namespace OnTask.BlazorWpf.Pages;
@@ -9,6 +11,7 @@ namespace OnTask.BlazorWpf.Pages;
 public partial class Index
 {
     [Inject] private CollectionService CollectionService { get; set; }
+    [Inject] private IDialogService DialogService { get; set; }
     
     private List<Collection> Collections { get; set; }
     
@@ -19,5 +22,11 @@ public partial class Index
             .Where(x => x.IsArchived == false)
             .OrderByDescending(x => x.IsFocused)
             .ToList();
+    }
+
+    private void OpenDialog()
+    {
+        var options = new DialogOptions {CloseOnEscapeKey = true};
+        DialogService.Show<CreateCollectionDialog>("Dialog", options);
     }
 }

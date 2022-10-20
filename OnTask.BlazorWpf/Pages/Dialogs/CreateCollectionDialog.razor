@@ -1,0 +1,23 @@
+@using MudBlazor
+<MudDialog>
+    <DialogContent>
+        <MudContainer MaxWidth="MaxWidth.Small">
+            <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator/>
+                <ValidationSummary/>
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField class="mb-2" Label="Name" HelperText="Collection Name" @bind-Value="_model.Name" For="(() => _model.Name)"/>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </EditForm>
+        </MudContainer>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
