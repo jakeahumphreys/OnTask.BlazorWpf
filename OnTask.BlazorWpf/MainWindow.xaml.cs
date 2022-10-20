@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 using OnTask.BlazorWpf.Data.Collections;
+using OnTask.BlazorWpf.Services;
 
 
 namespace OnTask.BlazorWpf
@@ -15,6 +16,7 @@ namespace OnTask.BlazorWpf
             serviceCollection.AddMudServices();
 
             serviceCollection.AddSingleton<CollectionRepository>();
+            serviceCollection.AddSingleton<CollectionService>();
 
             Resources.Add("services", serviceCollection.BuildServiceProvider());
 
