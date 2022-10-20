@@ -33,4 +33,10 @@ public class CollectionService
         
         _collectionRepository.Create(collection);
     }
+
+    public Collection GetCollectionById(Guid id)
+    {
+        //Need to look at error handling here
+        return _collectionRepository.GetById(id);
+    }
 }

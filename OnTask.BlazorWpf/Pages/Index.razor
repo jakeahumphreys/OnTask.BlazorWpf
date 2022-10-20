@@ -26,7 +26,7 @@
                     <MudText Typo="Typo.caption">@collection.Id</MudText>
                 </MudCardContent>
                 <MudCardActions>
-                    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.OpenInNew" Color="Color.Primary" Size="Size.Small">Open</MudButton>
+                    <MudButton Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.OpenInNew" Color="Color.Primary" Size="Size.Small" @onclick="@(() => OpenCollection(collection.Id))">Open</MudButton>
                 </MudCardActions>
             </MudCard>
         }

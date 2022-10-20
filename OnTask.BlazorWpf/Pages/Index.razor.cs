@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,7 @@ public partial class Index
 {
     [Inject] private CollectionService CollectionService { get; set; }
     [Inject] private IDialogService DialogService { get; set; }
+    [Inject] private NavigationManager NavigationManager { get; set; }
     
     private List<Collection> Collections { get; set; }
     
@@ -28,5 +30,10 @@ public partial class Index
     {
         var options = new DialogOptions {CloseOnEscapeKey = true};
         DialogService.Show<CreateCollectionDialog>("Dialog", options);
+    }
+
+    private void OpenCollection(Guid collectionId)
+    {
+        NavigationManager.NavigateTo($"/Collection/{collectionId.ToString()}");
     }
 }
