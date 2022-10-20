@@ -1,7 +1,31 @@
-﻿@page "/"
+﻿@using MudBlazor
+@page "/"
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+<MudContainer>
+    <MudStack>
+        @foreach (var collection in Collections)
+        {
+            <MudCard>
+                <MudCardHeader>
+                    <CardHeaderContent>
+                        <MudText Typo="Typo.h6">@collection.Name</MudText>
+                    </CardHeaderContent>
+                    <CardHeaderActions>
+                        @if (collection.IsFocused)
+                        {
+                            <MudChip Color="Color.Info">Focused</MudChip>
+                        }
+                    </CardHeaderActions>
+                </MudCardHeader>
+                <MudCardContent>
+                    <MudText Typo="Typo.caption">@collection.Id</MudText>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Text" Color="Color.Primary">Open</MudButton>
+                </MudCardActions>
+            </MudCard>
+        }
+    </MudStack>
+</MudContainer>
