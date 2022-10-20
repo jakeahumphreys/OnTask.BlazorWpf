@@ -1,4 +1,5 @@
 @using MudBlazor
+@using OnTask.BlazorWpf.Data.Tasks
 @page "/Collection/{id}"
 
 <MudContainer>
@@ -17,14 +18,7 @@
         </MudCardHeader>
     </MudCard>
     <MudCard>
-        <MudCardHeader>
-            <CardHeaderContent>
-                <MudText Typo="Typo.h5">Tasks</MudText>
-            </CardHeaderContent>
-        </MudCardHeader>
-        <MudDivider DividerType="DividerType.Middle" Class="my-6"/>
         <MudCardContent>
-            
             <MudTable Items="@_collection.Tasks" Striped="true" Dense="@dense">
                 <ToolBarContent>
                     <MudText Typo="Typo.caption">There are @_collection.Tasks.Count tasks in this collection.</MudText>
@@ -40,7 +34,19 @@
                     <MudTd DataLabel="ID">@context.Id</MudTd>
                     <MudTd DataLabel="Name">@context.Name</MudTd>
                     <MudTd DataLabel="Created">@context.CreatedAt.ToShortDateString()</MudTd>
-                    <MudTd DataLabel="Created">@context.Status</MudTd>
+                    <MudTd DataLabel="Created">
+                        @if ((TaskStatusEnum) context.Status == TaskStatusEnum.Pending)
+                        {
+                            <MudChip Color="Color.Primary">Pending</MudChip>
+                        } else if ((TaskStatusEnum) context.Status == TaskStatusEnum.InProgress)
+                        {
+                            <MudChip Color="Color.Warning">In Progress</MudChip>
+                        }
+                        else
+                        {
+                            <MudChip Color="Color.Success">Complete</MudChip>
+                        }
+                    </MudTd>
                 </RowTemplate>
             </MudTable>
             <div class="d-flex flex-wrap mt-4">
