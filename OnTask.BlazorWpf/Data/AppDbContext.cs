@@ -13,7 +13,7 @@ public class AppDbContext : DbContext
 
     public AppDbContext()
     {
-        var applicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "OnTaskDesktop");
+        var applicationDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "OnTaskDesktop");
         DbPath = Path.Join(applicationDirectory, "OnTaskData.db");
     }
 
