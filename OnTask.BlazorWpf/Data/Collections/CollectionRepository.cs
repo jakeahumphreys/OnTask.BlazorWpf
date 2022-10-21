@@ -16,7 +16,10 @@ public class CollectionRepository
 
     public List<Collection> GetAll()
     {
-        return _context.Collections.Include(x => x.Tasks).ThenInclude(y => y.Activities).ToList();
+        return _context.Collections
+            .Include(x => x.Tasks)
+            .ThenInclude(y => y.Activities)
+            .ToList();
     }
 
     public Collection GetById(Guid id)
