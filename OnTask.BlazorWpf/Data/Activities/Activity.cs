@@ -7,6 +7,7 @@ public class Activity
 {
     [Key]
     public Guid Id { get; set; }
+    public DateTime CreatedAt { get; set; }
     public int Type { get; set; }
     public string Content { get; set; }
 }
