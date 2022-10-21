@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using SQLitePCL;
 
 namespace OnTask.BlazorWpf.Data.Collections;
 
@@ -32,7 +33,7 @@ public class CollectionRepository
     public void Create(Collection collection)
     {
         _context.Collections.Add(collection);
-        _context.SaveChangesAsync();
+        _context.SaveChanges();
     }
 
     public void Update(Collection collection)

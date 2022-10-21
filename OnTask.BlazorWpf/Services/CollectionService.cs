@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using OnTask.BlazorWpf.Data.Activities;
+using OnTask.BlazorWpf.Data.Activities.DTO;
 using OnTask.BlazorWpf.Data.Collections;
 using OnTask.BlazorWpf.Data.Tasks;
 using OnTask.BlazorWpf.Pages.PageModels;
@@ -32,6 +34,22 @@ public class CollectionService
         };
         
         _collectionRepository.Create(collection);
+    }
+
+    public void AddComment(AddCommentDto dto)
+    {
+        var collection = _collectionRepository.GetById(dto.ParentId);
+
+        var activity = new Activity
+        {
+            Id = Guid.NewGuid(),
+            Content = dto.Comment,
+            Type = (int) ActivityTypeEnum.Comment,
+            CreatedAt = DateTime.Now
+        };
+        
+        collection.Activities.Add(activity);
+        _collectionRepository.Update(collection);
     }
 
     public Collection GetCollectionById(Guid id)
