@@ -24,17 +24,15 @@
                     <MudText Typo="Typo.caption">There are @_collection.Tasks.Count tasks in this collection.</MudText>
                 </ToolBarContent>
                 <HeaderContent>
-                    <MudTh>ID</MudTh>
                     <MudTh>Name</MudTh>
                     <MudTh>Created</MudTh>
                     <MudTh>Status</MudTh>
                     <MudTh>Actions</MudTh>
                 </HeaderContent>
                 <RowTemplate>
-                    <MudTd DataLabel="ID">@context.Id</MudTd>
                     <MudTd DataLabel="Name">@context.Name</MudTd>
                     <MudTd DataLabel="Created">@context.CreatedAt.ToShortDateString()</MudTd>
-                    <MudTd DataLabel="Created">
+                    <MudTd DataLabel="Status">
                         @if ((TaskStatusEnum) context.Status == TaskStatusEnum.Pending)
                         {
                             <MudChip Color="Color.Primary">Pending</MudChip>
@@ -47,10 +45,14 @@
                             <MudChip Color="Color.Success">Complete</MudChip>
                         }
                     </MudTd>
+                    <MudTd DataLabel="Actions">
+                         <MudIconButton Icon="@Icons.Material.Filled.OpenInNew" Color="Color.Primary"/>
+                         <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
+                    </MudTd>
                 </RowTemplate>
             </MudTable>
             <div class="d-flex flex-wrap mt-4">
-                 <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Dense</MudSwitch>
+                 <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Compact View</MudSwitch>
             </div>
         </MudCardContent>
         <MudCardActions>
