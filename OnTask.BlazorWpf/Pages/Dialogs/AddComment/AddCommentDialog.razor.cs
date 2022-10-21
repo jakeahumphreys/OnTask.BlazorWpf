@@ -14,6 +14,7 @@ public partial class AddCommentDialog
     [Inject] private CollectionService CollectionService { get; set; }
     [Inject] private ActivityService ActivityService { get; set; }
     [Inject] private NavigationManager _navigationManager { get; set; }
+    [Inject] private IMessageService MessageService { get; set; }
 
     [Parameter] public string? ParentId { get; set; }
     [Parameter] public bool IsForCollection { get; set; }
@@ -47,9 +48,13 @@ public partial class AddCommentDialog
             });
             
             // _navigationManager.NavigateTo($"/Collection/{ParentId}", true);
-            StateHasChanged();
+            SendMessage();
             Submit();
-            ParentPage.RefreshState();
         }
-    } 
+    }
+
+    private void SendMessage()
+    {
+        MessageService.SendMessage("StateHasChanged");
+    }
 }

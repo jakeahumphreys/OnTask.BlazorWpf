@@ -17,11 +17,28 @@ public partial class CollectionPage
     
     [Inject] private CollectionService CollectionService { get; set; }
     [Inject] private IDialogService DialogService { get; set; }
+    [Inject] private IMessageService MessageService { get; set; }
 
     protected override void OnInitialized()
     {
+        PopulateCollection();
+        MessageService.OnMessage += HandleMessage;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+    }
+
+    private void PopulateCollection()
+    {
         var parsedId = Guid.Parse(Id);
         _collection = CollectionService.GetCollectionById(parsedId); //This isn't very safe
+    }
+
+    private void HandleMessage(string message)
+    {
+        PopulateCollection();
+        StateHasChanged();
     }
 
     private void AddComment()
@@ -33,11 +50,5 @@ public partial class CollectionPage
 
         var options = new DialogOptions() {CloseButton = true};
         DialogService.Show<AddCommentDialog>("Add Comment", paramaters, options);
-        StateHasChanged();
-    }
-
-    public void RefreshState()
-    {
-        StateHasChanged();
     }
 }

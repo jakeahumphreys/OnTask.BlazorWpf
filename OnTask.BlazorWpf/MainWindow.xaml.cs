@@ -16,6 +16,8 @@ namespace OnTask.BlazorWpf
             serviceCollection.AddWpfBlazorWebView();
             serviceCollection.AddMudServices();
 
+            serviceCollection.AddSingleton<IMessageService, MessageService>();
+
             serviceCollection.AddSingleton<CollectionRepository>();
             serviceCollection.AddSingleton<CollectionService>();
             serviceCollection.AddSingleton<ActivityRepository>();
