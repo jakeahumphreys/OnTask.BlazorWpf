@@ -24,7 +24,9 @@ public class CollectionRepository
 
     public Collection GetById(Guid id)
     {
-        return _context.Collections.SingleOrDefault(x => x.Id == id);
+        return _context.Collections
+            .Include(x => x.Activities)
+            .SingleOrDefault(x => x.Id == id);
     }
 
     public void Create(Collection collection)
