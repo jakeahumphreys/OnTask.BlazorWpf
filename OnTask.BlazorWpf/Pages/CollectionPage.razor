@@ -1,4 +1,5 @@
 @using MudBlazor
+@using OnTask.BlazorWpf.Data.Activities
 @using OnTask.BlazorWpf.Data.Tasks
 @page "/Collection/{id}"
 
@@ -11,13 +12,16 @@
         <MudCardHeader>
             <CardHeaderContent>
                 <MudText Typo="Typo.h6">@_collection.Name</MudText>
+                <div class="d-flex flex-wrap mt-4">
+                    <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Compact View</MudSwitch>
+                </div>
             </CardHeaderContent>
             <CardHeaderActions>
                 <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
             </CardHeaderActions>
         </MudCardHeader>
     </MudCard>
-    <MudCard>
+    <MudCard Class="mb-2">
         <MudCardContent>
             <MudTable Items="@_collection.Tasks" Striped="true" Dense="@dense">
                 <ToolBarContent>
@@ -46,17 +50,66 @@
                         }
                     </MudTd>
                     <MudTd DataLabel="Actions">
-                         <MudIconButton Icon="@Icons.Material.Filled.OpenInNew" Color="Color.Primary"/>
-                         <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
+                        <MudIconButton Icon="@Icons.Material.Filled.OpenInNew" Color="Color.Primary"/>
+                        <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
                     </MudTd>
                 </RowTemplate>
             </MudTable>
-            <div class="d-flex flex-wrap mt-4">
-                 <MudSwitch @bind-Checked="@dense" Color="Color.Secondary">Compact View</MudSwitch>
-            </div>
         </MudCardContent>
         <MudCardActions>
             <MudButton Variant="Variant.Filled" Color="Color.Success">Add Task</MudButton>
         </MudCardActions>
     </MudCard>
+    <MudCard>
+        <MudCardHeader>
+            <CardHeaderContent>
+                <MudText Typo="Typo.body1">Activities</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent>
+            <MudStack>
+                @foreach (var activity in _collection.Activities)
+                {
+                    if ((ActivityTypeEnum) activity.Type == ActivityTypeEnum.Comment)
+                    {
+                        <MudCard Class="mb-2">
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                </CardHeaderContent>
+                                <CardHeaderActions>
+
+                                </CardHeaderActions>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudAlert Class="object-fill" Severity="Severity.Info" Icon="@Icons.Filled.Comment" Dense="@dense">@activity.Content</MudAlert>
+                            </MudCardContent>
+                            <MudCardActions>
+                                <MudIconButton Icon="@Icons.Material.Filled.Edit" Color="Color.Primary"/>
+                                <MudIconButton Icon="@Icons.Material.Filled.Delete" Color="Color.Error"/>
+                            </MudCardActions>
+                        </MudCard>
+                    }
+
+                    if ((ActivityTypeEnum) activity.Type == ActivityTypeEnum.StatusChange)
+                    {
+                        <MudCard Class="mb-2">
+                            <MudCardHeader>
+                                <CardHeaderContent>
+                                </CardHeaderContent>
+                            </MudCardHeader>
+                            <MudCardContent>
+                                <MudAlert Class="object-fill" Severity="Severity.Warning" Dense="@dense">Status Change: @activity.Content</MudAlert>
+                            </MudCardContent>
+                        </MudCard>
+                    }
+                }
+            </MudStack>
+        </MudCardContent>
+        <MudCardActions>
+            <MudButton Variant="Variant.Filled" StartIcon="@Icons.Filled.Comment" Color="Color.Info">Add Comment</MudButton>
+        </MudCardActions>
+    </MudCard>
+    <MudScrollToTop>
+        <MudFab Color="Color.Tertiary" Icon="@Icons.Filled.ArrowCircleUp" />
+    </MudScrollToTop>
 </MudContainer>
