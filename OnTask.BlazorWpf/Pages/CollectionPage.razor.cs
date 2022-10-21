@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
+using OnTask.BlazorWpf.Common;
 using OnTask.BlazorWpf.Data.Collections;
 using OnTask.BlazorWpf.Pages.Dialogs.AddComment;
 using OnTask.BlazorWpf.Services;
@@ -24,11 +25,7 @@ public partial class CollectionPage
         PopulateCollection();
         MessageService.OnMessage += HandleMessage;
     }
-
-    protected override void OnAfterRender(bool firstRender)
-    {
-    }
-
+    
     private void PopulateCollection()
     {
         var parsedId = Guid.Parse(Id);
@@ -37,7 +34,9 @@ public partial class CollectionPage
 
     private void HandleMessage(string message)
     {
-        PopulateCollection();
+        if (message == MessageTypeEnum.CollectionActivitiesUpdated.ToString())
+            PopulateCollection();
+        
         StateHasChanged();
     }
 

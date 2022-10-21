@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
+using OnTask.BlazorWpf.Common;
 using OnTask.BlazorWpf.Data.Activities;
 using OnTask.BlazorWpf.Services;
 
@@ -47,14 +48,8 @@ public partial class AddCommentDialog
                 CollectionId = parsedId
             });
             
-            // _navigationManager.NavigateTo($"/Collection/{ParentId}", true);
-            SendMessage();
+            MessageService.SendMessage(MessageTypeEnum.CollectionActivitiesUpdated.ToString());
             Submit();
         }
-    }
-
-    private void SendMessage()
-    {
-        MessageService.SendMessage("StateHasChanged");
     }
 }
