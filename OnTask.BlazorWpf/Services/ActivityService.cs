@@ -16,4 +16,9 @@ public sealed class ActivityService
     {
         return _repository.GetById(id);
     }
+
+    public void AddActivity(Activity activity)
+    {
+        _repository.Add(activity);
+    }
 }

@@ -29,8 +29,15 @@ public partial class CollectionPage
         var paramaters = new DialogParameters();
         paramaters.Add("ParentId", Id);
         paramaters.Add("isForCollection", true);
+        paramaters.Add("ParentPage", this);
 
         var options = new DialogOptions() {CloseButton = true};
         DialogService.Show<AddCommentDialog>("Add Comment", paramaters, options);
+        StateHasChanged();
+    }
+
+    public void RefreshState()
+    {
+        StateHasChanged();
     }
 }

@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using MudBlazor;
 using OnTask.BlazorWpf.Data.Activities;
-using OnTask.BlazorWpf.Data.Activities.DTO;
-using OnTask.BlazorWpf.Data.Collections;
-using OnTask.BlazorWpf.Pages.PageModels;
 using OnTask.BlazorWpf.Services;
 
 namespace OnTask.BlazorWpf.Pages.Dialogs.AddComment;
@@ -17,9 +14,10 @@ public partial class AddCommentDialog
     [Inject] private CollectionService CollectionService { get; set; }
     [Inject] private ActivityService ActivityService { get; set; }
     [Inject] private NavigationManager _navigationManager { get; set; }
-    
+
     [Parameter] public string? ParentId { get; set; }
     [Parameter] public bool IsForCollection { get; set; }
+    [Parameter] public CollectionPage ParentPage { get; set; }
 
 
     private AddCommentModel _model = new AddCommentModel();
@@ -39,15 +37,19 @@ public partial class AddCommentDialog
         var parsedId = Guid.Parse(ParentId);
         if (IsForCollection)
         {
-            CollectionService.AddComment(new AddCommentDto
+            ActivityService.AddActivity(new Activity
             {
-                ParentId = parsedId,
-                Comment = _model.Comment
+                Content = _model.Comment,
+                Id = Guid.NewGuid(),
+                Type = (int)ActivityTypeEnum.Comment,
+                CreatedAt = DateTime.Now,
+                CollectionId = parsedId
             });
             
-            _navigationManager.NavigateTo($"/Collections/{ParentId}");
+            // _navigationManager.NavigateTo($"/Collection/{ParentId}", true);
             StateHasChanged();
             Submit();
+            ParentPage.RefreshState();
         }
     } 
 }
